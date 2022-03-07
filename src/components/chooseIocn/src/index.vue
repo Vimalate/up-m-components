@@ -24,7 +24,6 @@
 
 <script lang="ts" setup>
 import * as elIcons from "@element-plus/icons-vue"
-import { fa } from "element-plus/lib/locale";
 import { watch, ref } from "vue"
 import { useCopy } from "../../../hooks/useCopy";
 import { toLine } from "../../../utils/index"

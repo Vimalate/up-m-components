@@ -2,14 +2,36 @@
   margin: 0;
   padding: 0;
 }
-svg {
-  width: 1em;
-  height: 1em;
-}
+
 html,
 body,
 #app,
 .el-container,
 .el-menu {
   height: 100%;
+}
+
+svg {
+  width: 1em;
+  height: 1em;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: none;
+  background: rgba(144,147,153,.6);
+}
+/* 兼容火狐 */
+html {
+  scrollbar-width: thin;
+}
+* {
+  /* box-sizing: inherit; */
+  scrollbar-width: inherit;
 }

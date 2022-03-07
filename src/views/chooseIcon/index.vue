@@ -1,9 +1,9 @@
 <template>
-  <ChooseIcon title="选择图标" v-model:visible="visible">选择图标</ChooseIcon>
+  <m-choose-icon title="选择图标" v-model:visible="visible">选择图标</m-choose-icon>
 </template>
 
 <script lang="ts" setup>
-import ChooseIcon from "../../components/chooseIocn/src/index.vue"
+// import ChooseIcon from "../../components/chooseIcon/src/index.vue"
 import { ref } from "vue";
 let visible = ref<boolean>(false)
 </script>

@@ -23,6 +23,10 @@ const routes: RouteRecordRaw[] = [
         path: "/trend",
         component: ()=>import("../views/trend/index.vue"),
       },
+      {
+        path: "/menu",
+        component: ()=>import("../views/menu/index.vue"),
+      },
     ]
   },
   

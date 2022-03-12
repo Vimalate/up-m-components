@@ -61,6 +61,7 @@ const endDisabledDate = (time: Date) => {
 watch(() => startDate.value, val => {
   if (!val) {
     endDateDisabled.value = true
+    endDate.value = null
   } else {
     endDateDisabled.value = false
     emits('startChange', val)

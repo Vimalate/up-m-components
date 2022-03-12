@@ -6,6 +6,7 @@ import menu from "./menu/index";
 import progress from "./progress/index";
 import chooseTime from "./chooseTime/index";
 import chooseDate from "./chooseDate/index";
+import chooseCity from "./chooseCity/index";
 
 const components = [
   chooseDate,
@@ -15,6 +16,7 @@ const components = [
   menu,
   progress,
   chooseTime,
+  chooseCity,
 ];
 
 export default {

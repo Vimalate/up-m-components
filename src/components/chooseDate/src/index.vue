@@ -6,6 +6,7 @@
         v-model="startDate"
         type="datetime"
         :placeholder="startPlaceholder"
+        v-bind="$attrs.startOption"
       ></el-date-picker>
     </div>
     <div>
@@ -15,6 +16,7 @@
         type="datetime"
         :placeholder="endPlaceholder"
         :disabledDate="endDisabledDate"
+        v-bind="$attrs.endOption"
       ></el-date-picker>
     </div>
   </div>
@@ -65,7 +67,12 @@ watch(() => startDate.value, val => {
   }
 })
 
-
+watch(() => endDate.value, val => {
+  val && emits('endChange', {
+    startDate: startDate.value,
+    endDate: val
+  })
+})
 
 </script>
 

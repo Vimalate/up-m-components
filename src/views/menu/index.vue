@@ -1,33 +1,33 @@
 <template>
   <div style="width:200px">
     <!-- 普通菜单 -->
-    <!-- <m-menu defaultActive="2" a="1" :data="menu"></m-menu> -->
+    <m-menu defaultActive="1" name="a" index="b" icon="c" children="d"  :data="menu"></m-menu>
     <!-- 无限层级菜单 -->
-    <m-infinite-menu defaultActive="1" active-text-color="red" :data="menu2"></m-infinite-menu>
+    <!-- <m-infinite-menu defaultActive="1" active-text-color="red"  name="a" index="b" icon="c" children="d" :data="menu2"></m-infinite-menu> -->
   </div>
 </template>
 
 <script lang="ts" setup>
 let menu = [
   {
-    name: '导航1',
-    index: '1',
-    icon: 'document'
+    a: '导航1',
+    b: '1',
+    c: 'document'
   },
   {
-    name: '导航2',
-    index: '2',
-    icon: 'document'
+    a: '导航2',
+    b: '2',
+    c: 'document'
   },
   {
-    name: '导航3',
-    index: '3',
-    icon: 'document',
-    children: [
+    a: '导航3',
+    b: '3',
+    c: 'document',
+    d: [
       {
-        name: '导航3-1',
-        index: '4',
-        icon: 'document',
+        a: '导航3-1',
+        b: '4',
+        c: 'document',
       }
     ]
   }
@@ -35,29 +35,29 @@ let menu = [
 
 const menu2 = [
   {
-    name: '导航1',
-    index: '1',
-    icon: 'document'
+    a: '导航1',
+    b: '1',
+    c: 'Document'
   },
   {
-    name: '导航2',
-    index: '2',
-    icon: 'document'
+    a: '导航2',
+    b: '2',
+    c: 'Document'
   },
   {
-    name: '导航3',
-    index: '3',
-    icon: 'document',
-    children: [
+    a: '导航3',
+    b: '3',
+    c: 'Document',
+    d: [
       {
-        name: '导航3-1',
-        index: '4',
-        icon: 'document',
-        children: [
+        a: '导航3-1',
+        b: '4',
+        c: 'Document',
+        d: [
           {
-            name: '导航3-1-1',
-            index: '5',
-            icon: 'document',
+            a: '导航3-1-1',
+            b: '5',
+            c: 'Document',
           }
         ]
       }

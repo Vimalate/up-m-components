@@ -7,6 +7,7 @@ import progress from "./progress/index";
 import chooseTime from "./chooseTime/index";
 import chooseDate from "./chooseDate/index";
 import chooseCity from "./chooseCity/index";
+import form from "./form/index";
 
 const components = [
   chooseDate,
@@ -17,6 +18,7 @@ const components = [
   progress,
   chooseTime,
   chooseCity,
+  form
 ];
 
 export default {

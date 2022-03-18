@@ -14,11 +14,29 @@
         :prop="item.prop"
       >
         <component
+          v-if="item.type !== 'upload'"
           :placeholder="item.placeholder"
           v-model="model[item.prop!]"
           :is="`el-${item.type}`"
           v-bind="item.attrs"
         ></component>
+        <el-upload
+          v-bind="item.uploadAttrs"
+          :on-preview="onPreview"
+          :on-remove="onRemove"
+          :on-success="onSuccess"
+          :on-error="onError"
+          :on-progress="onProgress"
+          :on-change="onChange"
+          :before-upload="beforeUpload"
+          :before-remove="beforeRemove"
+          :http-request="httpRequest"
+          :on-exceed="onExceed"
+          v-else-if="item.type = 'upload'"
+        >
+          <slot name="uploadArea"></slot>
+          <slot name="uploadTip"></slot>
+        </el-upload>
       </el-form-item>
       <el-form-item
         v-if="item.children && item.children!.length"
@@ -51,7 +69,10 @@
 import { PropType, ref, onMounted, watch } from 'vue';
 import { FormOptions } from './types/types'
 import cloneDeep from "lodash/cloneDeep"
-import { tr } from 'element-plus/lib/locale';
+const emits = defineEmits(['on-preview', 'on-remove',
+  'on-success', 'on-error', 'on-progress',
+  'on-change', 'before-upload', 'before-remove', 'http-request', 'on-exceed'
+])
 let props = defineProps({
   options: {
     type: Array as PropType<FormOptions[]>,
@@ -86,6 +107,38 @@ onMounted(() => {
 watch(() => props.options, () => {
   initForm()
 }, { deep: true })
+
+const onPreview = (file: any) => {
+  emits('on-preview', file)
+}
+const onRemove = (file: any, fileList: any) => {
+  emits('on-remove', { file, fileList })
+}
+const beforeRemove = (file: any) => {
+  emits('before-remove', file)
+}
+const onSuccess = (response: any, file: any, fileList: any) => {
+  emits('on-success', { response, file, fileList })
+}
+const onError = (error: any, file: any, fileList: any) => {
+  emits('on-error', { error, file, fileList })
+}
+const onProgress = (event: any, file: any, fileList: any) => {
+  emits('on-progress', { event, file, fileList })
+}
+const onChange = (file: any, fileList: any) => {
+  emits('on-change', { file, fileList })
+}
+const beforeUpload = (file: any, fileList: any) => {
+  emits('before-upload', { file, fileList })
+}
+const httpRequest = (file: any) => {
+  emits('http-request', file)
+}
+
+const onExceed = (file: any, fileList: any) => {
+  emits('on-exceed', { file, fileList })
+}
 </script>
 
 <style scoped>

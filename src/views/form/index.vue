@@ -1,12 +1,27 @@
 <template>
   <div>
-    <m-form :options="options"></m-form>
+    <m-form
+      :options="options"
+      @on-preview="handlePreview"
+      @on-remove="handleRemove"
+      @before-remove="beforeRemove"
+      @on-exceed="handleExceed"
+      @on-change="handleChange"
+      @before-upload="handleBeforeUpload"
+    >
+      <template #uploadArea>
+        <el-button type="primary">Click to upload</el-button>
+      </template>
+      <template #uploadTip>
+        <div class="el-upload__tip">jpg/png files with a size less than 500kb</div>
+      </template>
+    </m-form>
   </div>
 </template>
 
 <script setup lang="ts">
 import { FormOptions } from '../../components/form/src/types/types';
-
+import { ElMessage, ElMessageBox } from 'element-plus'
 let options: FormOptions[] = [
   {
     type: 'input', value: '', prop: 'username', label: '用户名', rules: [
@@ -54,8 +69,45 @@ let options: FormOptions[] = [
       { type: 'radio', label: '男', value: 'male' },
       { type: 'radio', label: '女', value: 'female' },
     ]
+  },
+  {
+    type: 'upload', label: '附件', prop: 'pic',
+    uploadAttrs: {
+      action: "https://jsonplaceholder.typicode.com/posts/",
+      multiple: true,
+    },
+    rules: [
+      { required: true, message: '附件不能为空', trigger: 'blur' },
+    ],
   }
 ]
+
+const handleRemove = (val: any) => {
+  console.log('handleRemove', val.file, val.fileList)
+}
+const handlePreview = (file: any) => {
+  console.log('handlePreview', file)
+}
+const handleExceed = (val: any) => {
+  console.log('handleExceed');
+  ElMessage.warning(
+    `The limit is 3, you selected ${val.files.length} files this time, add up to ${val.files.length + val.fileList.length
+    } totally`
+  )
+}
+const beforeRemove = (val: any) => {
+  console.log('beforeRemove');
+  return ElMessageBox.confirm(`Cancel the transfert of ${val.file.name} ?`).then(
+    () => true,
+    () => false
+  )
+}
+const handleBeforeUpload = (val: any) => {
+  console.log('handleBeforeUpload', val);
+}
+const handleChange = (val: any) => {
+  console.log('handleChange', val);
+}
 </script>
 
 <style scoped>

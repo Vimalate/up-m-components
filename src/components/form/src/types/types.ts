@@ -3,7 +3,7 @@ import { CSSProperties } from "vue";
 
 export interface FormOptions {
   type: string;
-  value: any;
+  value?: any;
   label?: string;
   prop?: string;
   rules?: RuleItem[];
@@ -19,4 +19,5 @@ export interface FormOptions {
   };
   // 保单下的子元素
   children?: any[];
+  uploadAttrs?:any // 上传组件属性 {}
 }

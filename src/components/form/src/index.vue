@@ -1,5 +1,6 @@
 <template>
   <el-form
+    ref="form"
     v-if="model"
     :validate-on-rule-change="ruleChange"
     :label-width="labelWidth"
@@ -62,6 +63,9 @@
         </component>
       </el-form-item>
     </template>
+    <el-form-item>
+      <slot name="action" :form="form" :model="model"></slot>
+    </el-form-item>
   </el-form>
 </template>
 
@@ -69,6 +73,8 @@
 import { PropType, ref, onMounted, watch } from 'vue';
 import { FormOptions } from './types/types'
 import cloneDeep from "lodash/cloneDeep"
+import type { ElForm } from 'element-plus';
+type FormInstance = InstanceType<typeof ElForm>;
 const emits = defineEmits(['on-preview', 'on-remove',
   'on-success', 'on-error', 'on-progress',
   'on-change', 'before-upload', 'before-remove', 'on-exceed'
@@ -92,7 +98,7 @@ let props = defineProps({
   }
 
 })
-
+const form = ref<FormInstance>();
 let model = ref<any>(null) //checkbox-group 的 value: []
 const initForm = () => {
   if (props.options && props.options.length) {
@@ -112,31 +118,34 @@ watch(() => props.options, () => {
   initForm()
 }, { deep: true })
 
-const onPreview = (file: any) => {
+const onPreview = (file: File) => {
   emits('on-preview', file)
 }
-const onRemove = (file: any, fileList: any) => {
+const onRemove = (file: File, fileList: FileList) => {
   emits('on-remove', { file, fileList })
 }
-const beforeRemove = (file: any) => {
+const beforeRemove = (file: File) => {
   emits('before-remove', file)
 }
-const onSuccess = (response: any, file: any, fileList: any) => {
+const onSuccess = (response: any, file: File, fileList: FileList) => {
+  // 上传成功赋值
+  const uploadItem = props.options.find(item => item.type === 'upload')!
+  model[uploadItem.prop!] = { response, file, fileList }
   emits('on-success', { response, file, fileList })
 }
-const onError = (error: any, file: any, fileList: any) => {
+const onError = (error: any, file: File, fileList: FileList) => {
   emits('on-error', { error, file, fileList })
 }
-const onProgress = (event: any, file: any, fileList: any) => {
+const onProgress = (event: any, file: File, fileList: FileList) => {
   emits('on-progress', { event, file, fileList })
 }
-const onChange = (file: any, fileList: any) => {
+const onChange = (file: File, fileList: FileList) => {
   emits('on-change', { file, fileList })
 }
-const beforeUpload = (file: any, fileList: any) => {
+const beforeUpload = (file: File, fileList: FileList) => {
   emits('before-upload', { file, fileList })
 }
-const onExceed = (files: any, fileList: any) => {
+const onExceed = (files: File, fileList: FileList) => {
   emits('on-exceed', { files, fileList })
 }
 </script>

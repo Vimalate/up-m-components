@@ -16,6 +16,11 @@
       <template #uploadTip>
         <div class="el-upload__tip">jpg/png files with a size less than 500kb</div>
       </template>
+      <!-- 操作 -->
+      <template #action="scope">
+        <el-button type="primary" @click="onSubmit(scope)">Create</el-button>
+        <el-button @click="onReset(scope)">Cancel</el-button>
+      </template>
     </m-form>
   </div>
 </template>
@@ -23,6 +28,13 @@
 <script setup lang="ts">
 import { FormOptions } from '../../components/form/src/types/types';
 import { ElMessage, ElMessageBox } from 'element-plus'
+import type { ElForm } from 'element-plus';
+type FormInstance = InstanceType<typeof ElForm>;
+
+interface Scope {
+  form: FormInstance,
+  model: any
+}
 let options: FormOptions[] = [
   {
     type: 'input', value: '', prop: 'username', label: '用户名', rules: [
@@ -78,9 +90,9 @@ let options: FormOptions[] = [
       multiple: true,
       limit: 2
     },
-    rules: [
-      { required: true, message: '附件不能为空', trigger: 'blur' },
-    ],
+    // rules: [
+    //   { required: true, message: '附件不能为空', trigger: 'blur' },
+    // ],
   }
 ]
 
@@ -113,6 +125,21 @@ const handleChange = (val: any) => {
 const handleSuccess = (val: any) => {
   console.log('handleSuccess', val);
 
+}
+// 提交
+const onSubmit = (data: Scope) => {
+  data.form.validate((valid, fields) => {
+    if (valid) {
+      console.log('submit!', data.model)
+    } else {
+      console.log('error submit!', fields)
+    }
+  })
+}
+// 提交
+const onReset = (data: Scope) => {
+  console.log('onReset', data);
+  data.form.resetFields()
 }
 </script>
 

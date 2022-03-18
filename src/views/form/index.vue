@@ -8,6 +8,7 @@
       @on-exceed="handleExceed"
       @on-change="handleChange"
       @before-upload="handleBeforeUpload"
+      @on-success="handleSuccess"
     >
       <template #uploadArea>
         <el-button type="primary">Click to upload</el-button>
@@ -75,6 +76,7 @@ let options: FormOptions[] = [
     uploadAttrs: {
       action: "https://jsonplaceholder.typicode.com/posts/",
       multiple: true,
+      limit: 2
     },
     rules: [
       { required: true, message: '附件不能为空', trigger: 'blur' },
@@ -107,6 +109,10 @@ const handleBeforeUpload = (val: any) => {
 }
 const handleChange = (val: any) => {
   console.log('handleChange', val);
+}
+const handleSuccess = (val: any) => {
+  console.log('handleSuccess', val);
+
 }
 </script>
 

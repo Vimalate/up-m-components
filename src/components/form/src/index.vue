@@ -71,7 +71,7 @@ import { FormOptions } from './types/types'
 import cloneDeep from "lodash/cloneDeep"
 const emits = defineEmits(['on-preview', 'on-remove',
   'on-success', 'on-error', 'on-progress',
-  'on-change', 'before-upload', 'before-remove', 'http-request', 'on-exceed'
+  'on-change', 'before-upload', 'before-remove', 'on-exceed'
 ])
 let props = defineProps({
   options: {
@@ -85,6 +85,10 @@ let props = defineProps({
   ruleChange: {
     type: Boolean,
     default: false
+  },
+  // 用户自定义上传方法
+  httpRequest: {
+    type: Function,
   }
 
 })
@@ -132,12 +136,8 @@ const onChange = (file: any, fileList: any) => {
 const beforeUpload = (file: any, fileList: any) => {
   emits('before-upload', { file, fileList })
 }
-const httpRequest = (file: any) => {
-  emits('http-request', file)
-}
-
-const onExceed = (file: any, fileList: any) => {
-  emits('on-exceed', { file, fileList })
+const onExceed = (files: any, fileList: any) => {
+  emits('on-exceed', { files, fileList })
 }
 </script>
 

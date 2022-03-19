@@ -17,7 +17,7 @@ export interface FormOptions {
     disabled?: boolean;
     readonly?: boolean;
   };
-  // 保单下的子元素
+  // 表单下的子元素
   children?: any[];
   uploadAttrs?:any // 上传组件属性 {}
 }

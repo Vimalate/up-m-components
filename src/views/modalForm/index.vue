@@ -1,12 +1,27 @@
 <template>
   <div>
     <el-button type="primary" @click="open">打 开</el-button>
-    <m-modal-form title="编辑用户" width="50%" :options="options" v-model="visible">
+    <m-modal-form
+      title="编辑用户"
+      width="50%"
+      :options="options"
+      v-model:visible="visible"
+      :on-change="handleChange"
+      :before-upload="handleBeforeUpload"
+      :on-success="handleSuccess"
+    >
       <template #footer="{ form }">
         <span class="dialog-footer">
           <el-button @click="cancel(form)">Cancel</el-button>
           <el-button type="primary" @click="submit(form)">Confirm</el-button>
         </span>
+      </template>
+      <!-- 上传 -->
+      <template #uploadArea>
+        <el-button type="primary">Click to upload</el-button>
+      </template>
+      <template #uploadTip>
+        <div class="el-upload__tip">jpg/png files with a size less than 500kb</div>
       </template>
     </m-modal-form>
   </div>
@@ -44,7 +59,7 @@ let options: FormOptions[] = [
       },
     },
     prop: 'role', value: '', placeholder: '请选择职位', rules: [
-      { required: true, message: '职位不能为空', trigger: 'blur' },
+      { required: true, message: '职位不能为空', trigger: 'change' },
     ],
     children: [
       { type: 'option', label: '经理', value: '1' },
@@ -55,7 +70,7 @@ let options: FormOptions[] = [
   {
     type: 'checkbox-group', label: '爱好',
     prop: 'like', value: [], placeholder: '请选择爱好', rules: [
-      { required: true, message: '爱好不能为空', trigger: 'blur' },
+      { required: true, message: '爱好不能为空', trigger: 'change' },
     ],
     children: [
       { type: 'checkbox', text: '足球', label: '1' },
@@ -71,17 +86,17 @@ let options: FormOptions[] = [
       { type: 'radio', label: '女', value: 'female' },
     ]
   },
-  // {
-  //   type: 'upload', label: '附件', prop: 'pic',
-  //   uploadAttrs: {
-  //     action: "https://jsonplaceholder.typicode.com/posts/",
-  //     multiple: true,
-  //     limit: 2
-  //   },
-  //   // rules: [
-  //   //   { required: true, message: '附件不能为空', trigger: 'blur' },
-  //   // ],
-  // },
+  {
+    type: 'upload', label: '附件', prop: 'pic',
+    uploadAttrs: {
+      action: "https://jsonplaceholder.typicode.com/posts/",
+      multiple: true,
+      limit: 2
+    },
+    // rules: [
+    //   { required: true, message: '附件不能为空', trigger: 'blur' },
+    // ],
+  },
   {
     type: 'editor',
     value: '',
@@ -96,21 +111,30 @@ let options: FormOptions[] = [
 ]
 
 const submit = (form: any) => {
-  console.log('submit', form);
   const validate = form.validate()
   const model = form.getFormData() // 表单数据
   validate((valid: boolean) => {
     if (valid) {
       ElMessage.success('校验成功！')
-      console.log('formData',model);
+      console.log('formData', model);
     } else {
       ElMessage.error('校验失败！')
     }
   })
 }
 const cancel = (form: FormInstance) => {
-  console.log('cancel', form);
   visible.value = false
+}
+
+const handleBeforeUpload = (val: any) => {
+  console.log('handleBeforeUpload', val);
+}
+const handleChange = (val: any) => {
+  console.log('handleChange', val);
+}
+const handleSuccess = (val: any) => {
+  console.log('handleSuccess', val);
+
 }
 </script>
 

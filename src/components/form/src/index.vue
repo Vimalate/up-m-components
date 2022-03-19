@@ -130,11 +130,16 @@ const initForm = () => {
 
 // 重写重置表单方法
 const resetFields = () => {
-  form.value?.resetFields()
-  if (props.options && props.options.length) {
-    const editorItem = props.options.find(c => c.type === 'editor')!
-    editorRef.value.txt.html(editorItem.value)
-  }
+  // console.log('重置表单123');
+  //加 nextTick=> 弹框初始化的时候 editorRef.value拿不到的bug
+  nextTick(() => {
+    form.value!.resetFields()
+    if (props.options && props.options.length) {
+      const editorItem = props.options.find(c => c.type === 'editor')!
+      editorRef.value.txt.html(editorItem.value)
+    }
+  })
+
 }
 
 // 重写表单验证方法

@@ -135,13 +135,23 @@ const resetFields = () => {
     const editorItem = props.options.find(c => c.type === 'editor')!
     editorRef.value.txt.html(editorItem.value)
   }
-  console.log('重置表单');
+}
 
+// 重写表单验证方法
+const validate = () => {
+  return form.value!.validate
+}
+
+// 获取表单数据
+const getFormData = () => {
+  return model.value
 }
 
 // 分发方法 (移除$children)
 defineExpose({
-  resetFields
+  resetFields,
+  validate,
+  getFormData
 })
 
 onMounted(() => {

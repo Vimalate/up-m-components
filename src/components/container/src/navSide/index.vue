@@ -79,6 +79,11 @@ let menu = [
     name: '表单',
     index: '/form'
   },
+   {
+    icon: 'Grid',
+    name: '弹出框表单',
+    index: '/modalForm'
+  },
   {
     icon: 'List',
     name: '表格',

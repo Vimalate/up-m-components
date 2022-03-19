@@ -15,7 +15,7 @@
         :prop="item.prop"
       >
         <component
-          v-if="item.type !== 'upload'"
+          v-if="item.type !== 'upload' && item.type !== 'editor'"
           :placeholder="item.placeholder"
           v-model="model[item.prop!]"
           :is="`el-${item.type}`"
@@ -33,11 +33,12 @@
           :before-remove="beforeRemove"
           :http-request="httpRequest"
           :on-exceed="onExceed"
-          v-else-if="item.type = 'upload'"
+          v-else-if="item.type === 'upload'"
         >
           <slot name="uploadArea"></slot>
           <slot name="uploadTip"></slot>
         </el-upload>
+        <div id="editor" v-else-if="item.type === 'editor'"></div>
       </el-form-item>
       <el-form-item
         v-if="item.children && item.children!.length"
@@ -70,8 +71,9 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, ref, onMounted, watch } from 'vue';
+import { PropType, ref, onMounted, watch, nextTick } from 'vue';
 import { FormOptions } from './types/types'
+import E from 'wangeditor'
 import cloneDeep from "lodash/cloneDeep"
 import type { ElForm } from 'element-plus';
 type FormInstance = InstanceType<typeof ElForm>;
@@ -100,16 +102,48 @@ let props = defineProps({
 })
 const form = ref<FormInstance>();
 let model = ref<any>(null) //checkbox-group 的 value: []
+let editorRef = ref<any>(null)
 const initForm = () => {
   if (props.options && props.options.length) {
     let m: any = {}
     props.options.map((item: FormOptions) => {
       m[item.prop!] = item.value
+      // 初始化富文本
+      if (item.type === 'editor') {
+        nextTick(() => {
+          if (document.getElementById('editor')) {
+            const editor = new E('#editor')
+            editor.config.placeholder = item.placeholder || '请输入正文'
+            editor.create()
+            editor.txt.html(item.value || '<p>用 JS 设置的内容</p>') // 重新设置编辑器内容
+            editor.config.onchange = function (newHtml: string) {
+              model.value[item.prop!] = newHtml
+            };
+            editorRef.value = editor
+          }
+        })
+      }
     })
     model.value = cloneDeep(m)
-    console.log('model', model);
   }
 }
+
+// 重写重置表单方法
+const resetFields = () => {
+  form.value?.resetFields()
+  if (props.options && props.options.length) {
+    const editorItem = props.options.find(c => c.type === 'editor')!
+    editorRef.value.txt.html(editorItem.value)
+  }
+  console.log('重置表单');
+
+}
+
+// 分发方法 (移除$children)
+defineExpose({
+  resetFields
+})
+
 onMounted(() => {
   initForm()
 })

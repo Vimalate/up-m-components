@@ -1,6 +1,7 @@
 <template>
   <div>
     <m-form
+      ref="formRef"
       :options="options"
       @on-preview="handlePreview"
       @on-remove="handleRemove"
@@ -26,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { FormOptions } from '../../components/form/src/types/types';
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { ElForm } from 'element-plus';
@@ -43,7 +45,7 @@ let options: FormOptions[] = [
     ], attrs: { clearable: true }
   },
   {
-    type: 'input', prop: 'password', value: '123456', label: '密码', rules: [
+    type: 'input', prop: 'password', value: '', label: '密码', rules: [
       { required: true, message: '密码不能为空', trigger: 'blur' },
       { min: 6, max: 15, message: '密码为6-15位' }
     ], attrs: { showPassWord: true, clearable: true }
@@ -55,7 +57,7 @@ let options: FormOptions[] = [
         width: '100%'
       },
     },
-    prop: 'role', value: '1', placeholder: '请选择职位', rules: [
+    prop: 'role', value: '', placeholder: '请选择职位', rules: [
       { required: true, message: '职位不能为空', trigger: 'blur' },
     ],
     children: [
@@ -66,7 +68,7 @@ let options: FormOptions[] = [
   },
   {
     type: 'checkbox-group', label: '爱好',
-    prop: 'like', value: ['1'], placeholder: '请选择爱好', rules: [
+    prop: 'like', value: [], placeholder: '请选择爱好', rules: [
       { required: true, message: '爱好不能为空', trigger: 'blur' },
     ],
     children: [
@@ -77,7 +79,7 @@ let options: FormOptions[] = [
   },
   {
     type: 'radio-group', label: '性别',
-    prop: 'gender', value: '男',
+    prop: 'gender', value: '',
     children: [
       { type: 'radio', label: '男', value: 'male' },
       { type: 'radio', label: '女', value: 'female' },
@@ -93,8 +95,20 @@ let options: FormOptions[] = [
     // rules: [
     //   { required: true, message: '附件不能为空', trigger: 'blur' },
     // ],
+  },
+  {
+    type: 'editor',
+    value: '123',
+    prop: 'desc',
+    label: '描述',
+    placeholder: '请输入描述',
+    rules: [
+      { required: true, message: '描述不能为空', trigger: 'blur' },
+    ]
   }
+
 ]
+let formRef = ref<any>(null)
 
 const handleRemove = (val: any) => {
   console.log('handleRemove', val.file, val.fileList)
@@ -139,7 +153,9 @@ const onSubmit = (data: Scope) => {
 // 提交
 const onReset = (data: Scope) => {
   console.log('onReset', data);
-  data.form.resetFields()
+  // data.form.resetFields()
+  // 调用封装form的重置方法
+  formRef.value.resetFields()
 }
 </script>
 

@@ -9,6 +9,7 @@ import chooseDate from "./chooseDate/index";
 import chooseCity from "./chooseCity/index";
 import form from "./form/index";
 import modalForm from "./modalForm/index";
+import table from "./table/index";
 
 const components = [
   chooseDate,
@@ -20,7 +21,8 @@ const components = [
   chooseTime,
   chooseCity,
   form,
-  modalForm
+  modalForm,
+  table
 ];
 
 export default {

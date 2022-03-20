@@ -130,7 +130,6 @@ const initForm = () => {
 
 // 重写重置表单方法
 const resetFields = () => {
-  // console.log('重置表单123');
   //加 nextTick=> 弹框初始化的时候 editorRef.value拿不到的bug
   nextTick(() => {
     form.value!.resetFields()

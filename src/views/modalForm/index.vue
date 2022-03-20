@@ -117,6 +117,7 @@ const submit = (form: any) => {
     if (valid) {
       ElMessage.success('校验成功！')
       console.log('formData', model);
+      visible.value = false
     } else {
       ElMessage.error('校验失败！')
     }

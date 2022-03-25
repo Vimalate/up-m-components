@@ -6,7 +6,9 @@ import "element-plus/dist/index.css";
 import * as Icons from "@element-plus/icons-vue";
 import { toLine } from "./utils";
 // 全局引入
-import mComponents from "./components/index"
+// import mComponents from "./components/index"
+import mComponents from "../lib/m-element-components.es";
+import "../lib/style.css";
 
 const app = createApp(App);
 for (const i in Icons) {

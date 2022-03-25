@@ -1,0 +1,31 @@
+<template>
+  <div class="header">
+    <span @click="toggle" style="cursor: pointer;">
+      <el-icon-expand v-if="collapse"></el-icon-expand>
+      <el-icon-fold v-else></el-icon-fold>
+    </span>
+  </div>
+</template>
+
+<script setup lang="ts">
+let props = defineProps<{
+  collapse: boolean
+}>()
+let emits = defineEmits(['update:collapse'])
+const toggle = () => {
+  emits('update:collapse', !props.collapse)
+}
+</script>
+
+<style lang="scss" scoped>
+svg {
+  height: 1em;
+  width: 1em;
+}
+.header {
+  height: 60px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+}
+</style>

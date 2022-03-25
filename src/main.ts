@@ -9,11 +9,16 @@ import { toLine } from "./utils";
 // import mComponents from "./components/index"
 import mComponents from "../lib/m-element-components.es";
 import "../lib/style.css";
-
+// 单独引入
+import chooseIcon from "../lib/chooseIcon/index.es";
+import "../lib/chooseIcon/style.css";
 const app = createApp(App);
 for (const i in Icons) {
   // 注册全局组件
   app.component(`el-icon-${toLine(i)}`, (Icons as any)[i]);
 }
-app.use(router).use(ElementPlus).use(mComponents);
+app.use(router)
+.use(ElementPlus)
+// .use(chooseIcon);
+.use(mComponents);
 app.mount("#app");

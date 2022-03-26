@@ -1,0 +1,18 @@
+{
+  "name": "m-components",
+  "version": "1.0.0",
+  "main": "index.umd.js",
+  "module": "index.es.js",
+  "types": "index.d.ts",
+  "author": {
+    "name": "Vimalakirti"
+  },
+  "keywords": [
+    "element-plus",
+    "ts",
+    "封装组建",
+    "二次封装",
+    "vite",
+    "vue3"
+  ]
+}

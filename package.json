@@ -6,6 +6,9 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
     "build:components": "node ./command/build.js",
     "lib": "npm run build:components && copy package.json"
   },
@@ -18,7 +21,8 @@
     "lodash": "^4.17.21",
     "vue": "^3.2.25",
     "vue-router": "^4.0.13",
-    "wangeditor": "^4.7.12"
+    "wangeditor": "^4.7.12",
+    "vitepress": "^0.22.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.0",

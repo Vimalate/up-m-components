@@ -1,5 +1,5 @@
 {
-  "name": "m-components",
+  "name": "vue3-m-components",
   "version": "1.0.0",
   "main": "index.umd.js",
   "module": "index.es.js",

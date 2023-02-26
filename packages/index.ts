@@ -11,6 +11,7 @@ import form from "./form/index";
 import modalForm from "./modalForm/index";
 import table from "./table/index";
 import calendar from "./calendar/index";
+import notification from "./notification/index";
 import "./styles/base.scss";
 import "./styles/ui.scss";
 import * as Icons from "@element-plus/icons-vue";
@@ -29,6 +30,7 @@ const components = [
   modalForm,
   table,
   calendar,
+  notification
 ];
 
 export default {

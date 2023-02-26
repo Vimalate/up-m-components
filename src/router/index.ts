@@ -55,6 +55,10 @@ const routes: RouteRecordRaw[] = [
         path: "/calendar",
         component: () => import("../views/calendar/index.vue"),
       },
+      {
+        path: '/notification',
+        component: () => import('../views/notification/index.vue')
+      },
     ],
   },
 ];

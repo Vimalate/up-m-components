@@ -39,7 +39,7 @@ let menu = [
     name: '图标选择器',
     index: '/chooseIcon'
   },
-   {
+  {
     icon: 'Menu',
     name: '导航菜单',
     index: '/menu'
@@ -75,11 +75,16 @@ let menu = [
     index: '/chooseTime'
   },
   {
+    icon: "Bell",
+    name: "通知菜单",
+    index: "/notification",
+  },
+  {
     icon: 'Grid',
     name: '表单',
     index: '/form'
   },
-   {
+  {
     icon: 'Grid',
     name: '弹出框表单',
     index: '/modalForm'

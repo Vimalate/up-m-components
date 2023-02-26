@@ -11,6 +11,7 @@ import form from "./form/index";
 import modalForm from "./modalForm/index";
 import table from "./table/index";
 import calendar from "./calendar/index";
+import notification from "./notification/index";
 
 const components = [
   chooseDate,
@@ -24,7 +25,8 @@ const components = [
   form,
   modalForm,
   table,
-  calendar
+  calendar,
+  notification
 ];
 
 export default {
